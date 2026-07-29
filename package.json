@@ -1,0 +1,58 @@
+{
+  "name": "@swap3d/sdk",
+  "version": "0.1.0",
+  "description": "Official TypeScript and JavaScript SDK for the Swap3D developer API.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist",
+    "generate": "openapi-typescript https://raw.githubusercontent.com/swap3d/swap3d-openapi/v0.1.0/openapi.json -o src/generated/schema.ts",
+    "check:generated": "npm run generate && git diff --exit-code -- src/generated/schema.ts",
+    "build": "npm run clean && tsc -p tsconfig.json",
+    "test": "npm run check:generated && npm run build && node --test",
+    "prepack": "npm test",
+    "verify:release": "node scripts/verify-release-version.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/swap3d/swap3d-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/swap3d/swap3d-js/issues"
+  },
+  "homepage": "https://swap3d.studio/developer-api",
+  "keywords": [
+    "swap3d",
+    "3d",
+    "conversion",
+    "gltf",
+    "glb",
+    "sdk",
+    "typescript"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "openapi-typescript": "7.13.0",
+    "typescript": "5.9.3"
+  },
+  "license": "Apache-2.0"
+}
