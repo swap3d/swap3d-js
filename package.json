@@ -1,6 +1,6 @@
 {
   "name": "@swap3d/sdk",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Official TypeScript and JavaScript SDK for the Swap3D developer API.",
   "type": "module",
   "main": "./dist/index.js",
