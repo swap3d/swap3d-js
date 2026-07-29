@@ -9,6 +9,10 @@ The official TypeScript and JavaScript client for the
 npm install @swap3d/sdk
 ```
 
+The SDK also exports `TARGET_FORMATS`, `SOURCE_EXTENSIONS`, and
+`MAX_UPLOAD_BYTES`. These runtime capabilities are generated from the same
+versioned OpenAPI contract as the TypeScript types.
+
 Node.js 18 or newer is required. The SDK also works in modern runtimes that
 provide the standard Fetch API, `Blob`, and `FormData`.
 

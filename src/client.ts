@@ -238,7 +238,8 @@ export class Swap3DClient {
       });
     }
 
-    return this.request(downloadUrl, {
+    const resolvedUrl = new URL(downloadUrl, `${this.baseUrl}/`).toString();
+    return this.request(resolvedUrl, {
       auth: false,
       signal: options.signal,
       retry: true,

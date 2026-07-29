@@ -1,7 +1,8 @@
+import type { SOURCE_EXTENSIONS, TARGET_FORMATS } from "./generated/capabilities.js";
 import type { components } from "./generated/schema.js";
 
-export type TargetFormat = components["schemas"]["TargetFormat"];
-export type SourceExtension = components["schemas"]["SourceExtension"];
+export type TargetFormat = (typeof TARGET_FORMATS)[number];
+export type SourceExtension = (typeof SOURCE_EXTENSIONS)[number];
 export type FormatsResponse = components["schemas"]["FormatsResponse"];
 export type UsageResponse = components["schemas"]["UsageResponse"];
 export type ConversionAccepted = components["schemas"]["ConversionAccepted"];

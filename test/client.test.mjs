@@ -1,7 +1,13 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { Swap3DClient, Swap3DError } from "../dist/index.js";
+import {
+  MAX_UPLOAD_BYTES,
+  SOURCE_EXTENSIONS,
+  Swap3DClient,
+  Swap3DError,
+  TARGET_FORMATS,
+} from "../dist/index.js";
 
 const jsonResponse = (payload, init = {}) =>
   new Response(JSON.stringify(payload), {
@@ -11,6 +17,12 @@ const jsonResponse = (payload, init = {}) =>
       ...init.headers,
     },
   });
+
+test("runtime capabilities are exported from the versioned contract", () => {
+  assert.deepEqual(TARGET_FORMATS, ["gltf", "glb", "gltf2", "glb2"]);
+  assert.ok(SOURCE_EXTENSIONS.includes("obj"));
+  assert.equal(MAX_UPLOAD_BYTES, 100 * 1024 * 1024);
+});
 
 test("getFormats does not require an API key", async () => {
   const calls = [];
@@ -180,4 +192,19 @@ test("idempotent requests retry transient failures", async () => {
 
   await client.getFormats();
   assert.equal(attempts, 2);
+});
+
+test("download resolves root-relative API URLs without duplicating the base path", async () => {
+  let requestedUrl;
+  const client = new Swap3DClient({
+    baseUrl: "https://api.example.test/api/v1",
+    fetch: async (url) => {
+      requestedUrl = String(url);
+      return new Response("model");
+    },
+  });
+
+  await client.download("/downloads/job.glb");
+
+  assert.equal(requestedUrl, "https://api.example.test/downloads/job.glb");
 });

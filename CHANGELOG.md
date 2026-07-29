@@ -5,3 +5,4 @@
 - Added the first typed Swap3D API client.
 - Added conversion submission, status polling, usage, capabilities, and downloads.
 - Added structured errors, abort signals, timeouts, and safe GET retries.
+- Exported runtime format and upload-limit constants generated from OpenAPI.
